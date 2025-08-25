@@ -1,0 +1,29 @@
+use streamwave;
+
+DELIMITER $$
+	CREATE PROCEDURE canciones_por_artista (
+	    IN p_artista_id INT
+	)
+	BEGIN
+	    SELECT c.cancion_id, c.titulo, c.duracion, a.nombre AS artista
+	    FROM Canciones c
+	    INNER JOIN Artistas a ON c.artista_id = a.artista_id
+	    WHERE a.artista_id = p_artista_id;
+	END $$
+	DELIMITER ;
+
+
+use streamwave;
+
+DELIMITER $$
+	CREATE PROCEDURE agregar_reproduccion (
+    	IN p_usuario_id INT,
+    	IN p_cancion_id INT,
+    	IN p_fecha DATE,
+    	IN p_hora TIME
+	)
+	BEGIN
+	    INSERT INTO Reproducciones (usuario_id, cancion_id, fecha_hora, hora)
+	    VALUES (p_usuario_id, p_cancion_id, p_fecha, p_hora);
+	END $$
+	DELIMITER ;
