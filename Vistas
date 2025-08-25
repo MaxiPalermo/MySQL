@@ -1,0 +1,42 @@
+use streamwave;
+
+CREATE VIEW vista_canciones_por_artista AS
+SELECT c.titulo AS cancion, a.nombre AS artista, al.titulo AS album
+FROM canciones c
+JOIN artistas a ON c.artista_id = a.artista_id
+JOIN albumes al ON c.album_id = al.album_id;
+
+
+use streamwave;
+
+CREATE VIEW vista_listas_por_usuario AS
+SELECT l.nombre AS lista, u.nombre_usuario AS creador, l.fecha_creacion
+FROM listas_reproduccion l
+JOIN usuarios u ON l.usuario_id = u.usuario_id;
+
+
+use streamwave;
+
+CREATE VIEW vista_reproducciones_usuario AS
+SELECT r.fecha_hora, u.nombre_usuario AS usuario, c.titulo AS cancion, r.duracion_escuchada
+FROM reproducciones r
+JOIN usuarios u ON r.usuario_id = u.usuario_id
+JOIN canciones c ON r.cancion_id = c.cancion_id;
+
+
+use streamwave;
+
+CREATE VIEW vista_canciones_por_genero AS
+SELECT c.genero, c.titulo AS cancion, a.nombre AS artista, al.titulo AS album
+FROM canciones c
+JOIN artistas a ON c.artista_id = a.artista_id
+JOIN albumes al ON c.album_id = al.album_id;
+
+
+use streamwave;
+
+CREATE VIEW vista_canciones_en_listas AS
+SELECT l.nombre AS lista, c.titulo AS cancion, cl.orden
+FROM canciones_por_lista cl
+JOIN canciones c ON cl.cancion_id = c.cancion_id
+JOIN listas_reproduccion l ON cl.lista_id = l.lista_id;
