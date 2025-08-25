@@ -1,0 +1,32 @@
+use streamwave;
+
+DELIMITER //
+CREATE FUNCTION duracion_promedio_artista(p_artista_id INT)
+RETURNS FLOAT
+DETERMINISTIC
+BEGIN
+  DECLARE promedio FLOAT;
+  SELECT AVG(duracion) INTO promedio
+  FROM canciones
+  WHERE artista_id = p_artista_id;
+  RETURN promedio;
+END;
+//
+DELIMITER ;
+
+
+use streamwave;
+
+DELIMITER //
+CREATE FUNCTION cantidad_canciones_lista(p_lista_id INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+  DECLARE total INT;
+  SELECT COUNT(*) INTO total
+  FROM canciones_por_lista
+  WHERE lista_id = p_lista_id;
+  RETURN total;
+END;
+//
+DELIMITER ;
