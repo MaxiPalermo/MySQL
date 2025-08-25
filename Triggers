@@ -1,0 +1,31 @@
+use streamwave;
+
+ALTER TABLE canciones ADD total_reproducciones INT DEFAULT 0;
+
+DELIMITER //
+	CREATE TRIGGER check_duracion_cancion
+	BEFORE INSERT ON canciones
+	FOR EACH ROW
+	BEGIN
+	    IF NEW.duracion <= 0 THEN
+	        SET NEW.duracion = 1; -- valor mínimo por defecto
+	    END IF;
+	END;
+	//
+	DELIMITER ;
+
+
+
+use streamwave;
+
+DELIMITER //
+
+CREATE TRIGGER set_fecha_registro
+BEFORE INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+    SET NEW.fecha_registro = NOW();
+END;
+//
+
+DELIMITER ;
